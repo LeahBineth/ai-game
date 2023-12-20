@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell 
+    x:Class="open_ai_game.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:open_ai_game"
+    Shell.FlyoutBehavior="Disabled">
+    <TabBar >
+        <ShellContent
+            Title="Tic Tac Toe"
+            ContentTemplate="{DataTemplate local:tic_tac_toe}"
+            Route="tic_tac_toe" />
+        <ShellContent
+            Title="Tic Tac Toe Completion"
+            ContentTemplate="{DataTemplate local:tic_tac_toe_completion}"
+            Route="tic_tac_toe_completion" />
+        <ShellContent 
+            Title="Open AI Text Generation"
+            ContentTemplate="{DataTemplate local:open_ai_api}"
+            Route="open_ai_api" />
+    </TabBar>
+</Shell>
