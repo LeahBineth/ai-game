@@ -203,13 +203,13 @@ public partial class tic_tac_toe_completion : ContentPage
         switch (player)
         {
             case PlayerEnum.User:
-                chat = $"{PlayerEnum.User}: \n{apiPrompt}";
+                chat = $"{PlayerEnum.User}: \n{apiPrompt}\n\n";
                 break;
             case PlayerEnum.Assistant:
-                chat = $"{PlayerEnum.Assistant}: \n{apiResponse.Replace("\n", "")} \n\n -------------------------";
+                chat = $"{PlayerEnum.Assistant}: \n{apiResponse.Replace("\n", "")} \n\n -------------------------\n\n";
                 break;
         }
-        lblChat.Text = string.IsNullOrEmpty(lblChat.Text) ? chat : lblChat.Text += $"\n\n{chat}";
+        lblChat.Text = lblChat.Text += chat;
     }
     private void HandleError(string message, string prompt)
     {
@@ -296,11 +296,11 @@ public partial class tic_tac_toe_completion : ContentPage
     {
         StartGame();
     }
-    private string apiSystemPrompt { get => $"We're playing Tic Tac Toe!\nYou are 'O' and I am 'X'. Your goal is to win by getting three in a row, whether diagonally, vertically, or horizontally. Always respond in the format \"row, col\" without extra text (e.g., \"2, 2\").\nBe strategic, aim for victory, and block the user from winning.\nGood luck!"; }
-    private string apiPromptStartGame { get => $"The current 3x3 game board is represented as a JSON 2D array, displaying blank spaces, 'X', and 'O':\n{GetTicTacToeJsonArray()}\nYour next move? Respond strictly in the format \"row, col\" (e.g. \"2, 2\")."; }
+    private string apiSystemPrompt { get => $"We're playing Tic Tac Toe!\nIt's a classic two-player game where the players take turns marking spaces in a 3x3 grid. The goal is to get three of their marks (either \"X\" or \"O\") in a row, either horizontally, vertically, or diagonally.\nAlways respond in the format \"row, col\" without extra text (e.g., \"2, 2\").\nBe strategic, aim for victory, and block the user from winning.\nGood luck!"; }
+    private string apiPromptStartGame { get => $"The current Tic Tac Toe game board is represented as a JSON 2D array, displaying blank spaces, 'X', and 'O':\n{GetTicTacToeJsonArray()}\nWhat is your next move? Respond strictly in the format \"row, col\" (e.g. \"2, 2\")."; }
     private string apiPromptMain { get => $"Updated board state:\n{GetTicTacToeJsonArray()}\nYour next move? Reply strictly in the format \"row, col\" (e.g. \"2, 2\") without extra text!"; }
     private string apiPromptNotExistingSpot { get => "You've selected an invalid spot. Please pick a valid position within the 3x3 grid in the format: \"row, col\" among available spots.  (e.g. \"2, 2\")"; }
-    private string apiPromptTakenSpot { get => "The spot you've chosen is already taken. Choose an empty position and provide your move as \"row, col\" from available spots.  (e.g. \"2, 2\")"; }
+    private string apiPromptTakenSpot { get => $"The spot you've chosen is already taken. Choose an empty position according to updated board state:\n{GetTicTacToeJsonArray()}.\nProvide your move as \"row, col\"  (e.g. \"2, 2\") from available spots.\nWhat is your next move?"; }
     private string apiPromptFormatWarning { get => $"Your response is in an incorrect format. Remember to reply strictly as \"row, col\". (e.g. \"2, 2\"). No additional text will be considered.\nUpdated board state:\n{GetTicTacToeJsonArray()}\nYour next move?"; }
     private string apiPromptNoResponse { get => $"You haven't provided an answer. Please give your move as \"row, col\". (e.g. \"2, 2\"). No additional text will be considered.\nUpdated board state:\n{GetTicTacToeJsonArray()}\nYour next move?"; }
 }
